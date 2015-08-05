@@ -62,8 +62,6 @@ class Libmemcached extends PhLibmemcached
         return parent::gc();
     }
 
-
-
     public function getLibmemcached()
     {
         return parent::getLibmemcached();
