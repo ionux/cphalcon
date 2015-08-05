@@ -7,7 +7,7 @@
  *
  * PhalconPHP Framework
  *
- * @copyright (c) 2011-2014 Phalcon Team
+ * @copyright (c) 2011-2015 Phalcon Team
  * @link      http://www.phalconphp.com
  * @author    Andres Gutierrez <andres@phalconphp.com>
  * @author    Nikolaos Dimopoulos <nikos@phalconphp.com>
@@ -272,7 +272,7 @@ class Tag extends PhTag
         return parent::image($parameters, $local);
     }
 
-    public static function friendlyTitle($text, $separator = "-", $lowercase = true, $replace = null)
+    public static function friendlyTitle($text, $separator = '-', $lowercase = true, $replace = null)
     {
         return parent::friendlyTitle($text, $separator, $lowercase, $replace);
     }
