@@ -19,7 +19,6 @@ if (!file_exists(__DIR__ . '/config.db.local.php')) {
     $configSqlite = array(
         'dbname' => '/tmp/phalcon_test.sqlite',
     );
-}
-else {
+} else {
     require __DIR__ . '/config.db.local.php';
 }
