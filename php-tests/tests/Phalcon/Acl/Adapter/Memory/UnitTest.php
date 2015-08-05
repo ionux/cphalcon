@@ -7,7 +7,7 @@
  *
  * PhalconPHP Framework
  *
- * @copyright (c) 2011-2014 Phalcon Team
+ * @copyright (c) 2011-2015 Phalcon Team
  * @link      http://www.phalconphp.com
  * @author    Andres Gutierrez <andres@phalconphp.com>
  * @author    Eduar Carvajal <eduar@phalconphp.com>
@@ -46,6 +46,7 @@ class UnitTest extends PhTestUnitTestCase
 
         $expected = PhAcl::ALLOW;
         $actual   = $acl->getDefaultAction();
+
         $this->assertEquals(
             $expected,
             $actual,
@@ -113,8 +114,7 @@ class UnitTest extends PhTestUnitTestCase
      */
     public function testIsRoleWithWrongKeyReturnsFalse()
     {
-        $acl     = new PhAclMem();
-
+        $acl    = new PhAclMem();
         $actual = $acl->isRole('Wrong');
 
         $this->assertFalse($actual, 'Acl\Role added with wrong key returns true in isRole');
@@ -185,12 +185,12 @@ class UnitTest extends PhTestUnitTestCase
         $aclResource = new PhAclResource('Customers', 'Customer management');
 
         $acl->setDefaultAction(PhAcl::DENY);
-
         $acl->addRole($aclRole);
         $acl->addResource($aclResource, array('search', 'destroy'));
 
         $expected = PhAcl::DENY;
         $actual   = $acl->isAllowed('Administrators', 'Customers', 'search');
+
         $this->assertEquals(
             $expected,
             $actual,
@@ -199,6 +199,7 @@ class UnitTest extends PhTestUnitTestCase
 
         $expected = PhAcl::DENY;
         $actual   = $acl->isAllowed('Administrators', 'Customers', 'destroy');
+
         $this->assertEquals(
             $expected,
             $actual,
@@ -226,6 +227,7 @@ class UnitTest extends PhTestUnitTestCase
 
         $expected = PhAcl::ALLOW;
         $actual   = $acl->isAllowed('Administrators', 'Customers', 'search');
+
         $this->assertEquals(
             $expected,
             $actual,
@@ -234,6 +236,7 @@ class UnitTest extends PhTestUnitTestCase
 
         $expected = PhAcl::DENY;
         $actual   = $acl->isAllowed('Administrators', 'Customers', 'destroy');
+
         $this->assertEquals(
             $expected,
             $actual,
@@ -261,7 +264,7 @@ class UnitTest extends PhTestUnitTestCase
         $acl->allow('Administrators', 'Customers', 'search');
         $acl->deny('Administrators', 'Customers', 'destroy');
 
-        $contents =serialize($acl);
+        $contents = serialize($acl);
         file_put_contents(PATH_CACHE . $filename, $contents);
 
         $acl = null;
@@ -279,12 +282,14 @@ class UnitTest extends PhTestUnitTestCase
         );
 
         $exists = $acl->isRole('Administrators');
+
         $this->assertTrue(
             $exists,
             'Role does not exist in unserialized object'
         );
 
         $exists = $acl->isResource('Customers');
+
         $this->assertTrue(
             $exists,
             'Resource does not exist in unserialized object'
@@ -292,6 +297,7 @@ class UnitTest extends PhTestUnitTestCase
 
         $expected = PhAcl::ALLOW;
         $actual   = $acl->isAllowed('Administrators', 'Customers', 'search');
+
         $this->assertEquals(
             $expected,
             $actual,
@@ -300,6 +306,7 @@ class UnitTest extends PhTestUnitTestCase
 
         $expected = PhAcl::DENY;
         $actual   = $acl->isAllowed('Administrators', 'Customers', 'destroy');
+
         $this->assertEquals(
             $expected,
             $actual,
@@ -315,6 +322,7 @@ class UnitTest extends PhTestUnitTestCase
     public function testNegationOfInheritedRoles_T65()
     {
         $acl = new PhAclMem;
+
         $acl->setDefaultAction(PhAcl::DENY);
 
         $acl->addRole('Guests');
@@ -326,7 +334,7 @@ class UnitTest extends PhTestUnitTestCase
         $acl->deny('Members', 'Login', 'index');
 
         $actual = (bool) $acl->isAllowed('Members', 'Login', 'index');
+
         $this->assertFalse($actual, 'Negation of inherited roles not correct');
     }
-
 }
