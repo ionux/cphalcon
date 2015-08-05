@@ -7,7 +7,7 @@
  *
  * PhalconPHP Framework
  *
- * @copyright (c) 2011-2014 Phalcon Team
+ * @copyright (c) 2011-2015 Phalcon Team
  * @link      http://www.phalconphp.com
  * @author    Andres Gutierrez <andres@phalconphp.com>
  * @author    Nikolaos Dimopoulos <nikos@phalconphp.com>
@@ -272,18 +272,14 @@ class FlashBase extends TBase
      */
     private function getClass($key)
     {
-        $template = ' class="%s"';
-
         if ($this->classes === array()) {
-            $class = '';
+            return '';
         } else {
-            $classes = (is_null($this->classes)) ?
+            $classes = ($this->classes === null) ?
                         $this->default           :
                         $this->classes;
-            $class = sprintf($template, $classes[$key]);
+            return sprintf(' class="%s"', $classes[$key]);
         }
-
-        return $class;
     }
 
     /**
@@ -331,10 +327,9 @@ class FlashBase extends TBase
             $expected = sprintf($template, $class, $message);
         }
 
-
         if ($this->notImplicit) {
             $flash->setImplicitFlush(false);
-            $actual   = $flash->$function($message);
+            $actual = $flash->$function($message);
         } else {
             $actual = $this->getObResponse($flash, $function, $message);
         }
