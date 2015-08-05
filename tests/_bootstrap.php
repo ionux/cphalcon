@@ -99,12 +99,10 @@ function newFileName($prefix = '', $suffix = 'log')
  */
 function cleanFile($path, $fileName)
 {
-    $file  = (substr($path, -1, 1) != "/") ? ($path . '/') : $path;
+    $file  = (substr($path, -1, 1) != '/') ? ($path . '/') : $path;
     $file .= $fileName;
 
-    $actual = file_exists($file);
-
-    if ($actual) {
+    if (file_exists($file)) {
         unlink($file);
     }
 }
