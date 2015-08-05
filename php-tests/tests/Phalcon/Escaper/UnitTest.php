@@ -7,7 +7,7 @@
  *
  * PhalconPHP Framework
  *
- * @copyright (c) 2011-2014 Phalcon Team
+ * @copyright (c) 2011-2015 Phalcon Team
  * @link      http://www.phalconphp.com
  * @author    Andres Gutierrez <andres@phalconphp.com>
  * @author    Nikolaos Dimopoulos <nikos@phalconphp.com>
@@ -38,8 +38,7 @@ class UnitTest extends PhTestUnitTestCase
     {
         $escaper = new PhEscaper();
 
-        $source = "<h1></h1>";
-
+        $source   = '<h1></h1>';
         $expected = '&lt;h1&gt;&lt;/h1&gt;';
         $actual   = $escaper->escapeHtml($source);
 
