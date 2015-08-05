@@ -7,7 +7,7 @@
  *
  * PhalconPHP Framework
  *
- * @copyright (c) 2011-2014 Phalcon Team
+ * @copyright (c) 2011-2015 Phalcon Team
  * @link      http://www.phalconphp.com
  * @author    Andres Gutierrez <andres@phalconphp.com>
  * @author    Nikolaos Dimopoulos <nikos@phalconphp.com>
@@ -40,6 +40,7 @@ class UnitTest extends PhTestUnitTestCase
 
         $expected = 'Administrators';
         $actual   = $aclResource->getName();
+
         $this->assertEquals(
             $expected,
             $actual,
@@ -48,12 +49,12 @@ class UnitTest extends PhTestUnitTestCase
 
         $expected = '';
         $actual   = $aclResource->getDescription();
+
         $this->assertEquals(
             $expected,
             $actual,
             'Acl\Resource does not return correct description'
         );
-
     }
 
     /**
@@ -68,6 +69,7 @@ class UnitTest extends PhTestUnitTestCase
 
         $expected = 'Administrators';
         $actual   = $aclResource->getName();
+
         $this->assertEquals(
             $expected,
             $actual,
@@ -76,11 +78,11 @@ class UnitTest extends PhTestUnitTestCase
 
         $expected = 'Super-User Resource';
         $actual   = $aclResource->getDescription();
+
         $this->assertEquals(
             $expected,
             $actual,
             'Acl\Resource does not return correct description'
         );
-
     }
 }
