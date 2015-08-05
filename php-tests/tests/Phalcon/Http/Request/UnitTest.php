@@ -7,7 +7,7 @@
  *
  * PhalconPHP Framework
  *
- * @copyright (c) 2011-2014 Phalcon Team
+ * @copyright (c) 2011-2015 Phalcon Team
  * @link      http://www.phalconphp.com
  * @author    Andres Gutierrez <andres@phalconphp.com>
  * @author    Nikolaos Dimopoulos <nikos@phalconphp.com>
@@ -254,7 +254,6 @@ class UnitTest extends PhTestUnitTestCase
 
     public function testInput()
     {
-
         /** POST */
         $this->assertFalse($this->request->hasPost('test'));
 
@@ -332,12 +331,10 @@ class UnitTest extends PhTestUnitTestCase
         $_SERVER['SERVER_NAME'] = 'localhost';
         $_SERVER['SERVER_PORT'] = 443;
         $this->assertEquals($this->request->getHttpHost(), 'localhost');
-
     }
 
     public function testMethod()
     {
-
         $_SERVER['REQUEST_METHOD'] = 'POST';
         $this->assertEquals($this->request->getMethod(), 'POST');
         $this->assertTrue($this->request->isPost());
@@ -367,12 +364,10 @@ class UnitTest extends PhTestUnitTestCase
         $_SERVER['REQUEST_METHOD'] = 'GET';
         $this->assertTrue($this->request->isMethod('GET'));
         $this->assertTrue($this->request->isMethod(array('GET', 'POST')));
-
     }
 
     public function testAcceptableContent()
     {
-
         $_SERVER['HTTP_ACCEPT'] = 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8';
         $accept = $this->request->getAcceptableContent();
         $this->assertEquals(count($accept), 4);
@@ -386,12 +381,10 @@ class UnitTest extends PhTestUnitTestCase
         $this->assertEquals($lastAccept['quality'], 0.8);
 
         $this->assertEquals($this->request->getBestAccept(), 'text/html');
-
     }
 
     public function testAcceptableCharsets()
     {
-
         $_SERVER['HTTP_ACCEPT_CHARSET'] = 'iso-8859-5,unicode-1-1;q=0.8';
         $accept = $this->request->getClientCharsets();
         $this->assertEquals(count($accept), 2);
@@ -405,12 +398,10 @@ class UnitTest extends PhTestUnitTestCase
         $this->assertEquals($lastAccept['quality'], 0.8);
 
         $this->assertEquals($this->request->getBestCharset(), 'iso-8859-5');
-
     }
 
     public function testAcceptableLanguage()
     {
-
         $_SERVER['HTTP_ACCEPT_LANGUAGE'] = 'es,es-ar;q=0.8,en;q=0.5,en-us;q=0.3';
         $accept = $this->request->getLanguages();
         $this->assertEquals(count($accept), 4);
@@ -424,7 +415,6 @@ class UnitTest extends PhTestUnitTestCase
         $this->assertEquals($lastAccept['quality'], 0.3);
 
         $this->assertEquals($this->request->getBestLanguage(), 'es');
-
     }
 
     public function testClientAddress()
@@ -447,5 +437,4 @@ class UnitTest extends PhTestUnitTestCase
     {
         unset($_SERVER[$var]);
     }
-
 }
