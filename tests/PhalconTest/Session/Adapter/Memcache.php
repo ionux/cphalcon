@@ -62,8 +62,6 @@ class Memcache extends PhMemcache
         return parent::gc();
     }
 
-
-
     public function getMemcache()
     {
         return parent::getMemcache();
