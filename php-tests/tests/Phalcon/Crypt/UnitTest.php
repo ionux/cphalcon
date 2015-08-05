@@ -7,7 +7,7 @@
  *
  * PhalconPHP Framework
  *
- * @copyright (c) 2011-2014 Phalcon Team
+ * @copyright (c) 2011-2015 Phalcon Team
  * @link      http://www.phalconphp.com
  * @author    Andres Gutierrez <andres@phalconphp.com>
  * @author    Nikolaos Dimopoulos <nikos@phalconphp.com>
@@ -28,63 +28,66 @@ namespace Phalcon\Test\Crypt;
  */
 class UnitTest extends \Phalcon\Test\UnitTestCase
 {
-	public function testEncryption()
-	{
-		$tests = array(
-			mt_rand(0, 100) => 'Some text',
-			md5(uniqid())   => str_repeat('x', mt_rand(1, 255)),
-			time()          => str_shuffle('abcdefeghijklmnopqrst'),
-			'le$ki'         => null
-		);
+    public function testEncryption()
+    {
+        $tests = array(
+            mt_rand(0, 100) => 'Some text',
+            md5(uniqid())   => str_repeat('x', mt_rand(1, 255)),
+            time()          => str_shuffle('abcdefeghijklmnopqrst'),
+            'le$ki'         => null
+        );
 
-		$encrypt = new \Phalcon\Crypt();
+        $encrypt = new \Phalcon\Crypt();
 
-		foreach (array(MCRYPT_MODE_ECB, MCRYPT_MODE_CBC, MCRYPT_MODE_CFB, MCRYPT_MODE_CFB, MCRYPT_MODE_NOFB) as $mode) {
-			$encrypt->setMode($mode);
+        foreach (array(MCRYPT_MODE_ECB, MCRYPT_MODE_CBC, MCRYPT_MODE_CFB, MCRYPT_MODE_CFB, MCRYPT_MODE_NOFB) as $mode) {
+            $encrypt->setMode($mode);
 
-			foreach ($tests as $key => $test) {
-				$encrypt->setKey($key);
-				$encryption = $encrypt->encrypt($test);
-				$this->assertEquals($test, rtrim($encrypt->decrypt($encryption), "\0"));
-			}
+            foreach ($tests as $key => $test) {
+                $encrypt->setKey($key);
+                $encryption = $encrypt->encrypt($test);
 
-			foreach ($tests as $key => $test) {
-				$encryption = $encrypt->encrypt($test, $key);
-				$this->assertEquals($test, rtrim($encrypt->decrypt($encryption, $key), "\0"));
-			}
-		}
-	}
+                $this->assertEquals($test, rtrim($encrypt->decrypt($encryption), "\0"));
+            }
 
-	public function testPadding()
-	{
-		$texts = array();
-		$key   = '0123456789ABCDEF0123456789ABCDEF';
-		$modes = array('ecb', 'cbc', 'cfb');
-		$pads  = array(
-			\Phalcon\Crypt::PADDING_ANSI_X_923, \Phalcon\Crypt::PADDING_PKCS7,
-			\Phalcon\Crypt::PADDING_ISO_10126, \Phalcon\Crypt::PADDING_ISO_IEC_7816_4,
-			\Phalcon\Crypt::PADDING_ZERO, \Phalcon\Crypt::PADDING_SPACE
-		);
+            foreach ($tests as $key => $test) {
+                $encryption = $encrypt->encrypt($test, $key);
 
-		for ($i=1; $i<128; ++$i) {
-			$texts[] = str_repeat('A', $i);
-		}
+                $this->assertEquals($test, rtrim($encrypt->decrypt($encryption, $key), "\0"));
+            }
+        }
+    }
 
-		$crypt = new \Phalcon\Crypt();
-		$crypt->setCipher(MCRYPT_RIJNDAEL_256)->setKey($key);
+    public function testPadding()
+    {
+        $texts = array();
+        $key   = '0123456789ABCDEF0123456789ABCDEF';
+        $modes = array('ecb', 'cbc', 'cfb');
+        $pads  = array(
+            \Phalcon\Crypt::PADDING_ANSI_X_923, \Phalcon\Crypt::PADDING_PKCS7,
+            \Phalcon\Crypt::PADDING_ISO_10126, \Phalcon\Crypt::PADDING_ISO_IEC_7816_4,
+            \Phalcon\Crypt::PADDING_ZERO, \Phalcon\Crypt::PADDING_SPACE
+        );
 
-		foreach ($pads as $padding) {
-			$crypt->setPadding($padding);
-			foreach ($modes as $mode) {
-				$crypt->setMode($mode);
+        for ($i = 1; $i < 128; ++$i) {
+            $texts[] = str_repeat('A', $i);
+        }
 
-				foreach ($texts as $text) {
-					$encrypted = $crypt->encrypt($text);
-					$actual    = $crypt->decrypt($encrypted);
+        $crypt = new \Phalcon\Crypt();
+        $crypt->setCipher(MCRYPT_RIJNDAEL_256)->setKey($key);
 
-					$this->assertEquals($text, $actual);
-				}
-			}
-		}
-	}
+        foreach ($pads as $padding) {
+            $crypt->setPadding($padding);
+
+            foreach ($modes as $mode) {
+                $crypt->setMode($mode);
+
+                foreach ($texts as $text) {
+                    $encrypted = $crypt->encrypt($text);
+                    $actual    = $crypt->decrypt($encrypted);
+
+                    $this->assertEquals($text, $actual);
+                }
+            }
+        }
+    }
 }
