@@ -31,6 +31,5 @@ class MysqlTest extends LoggerAdapterFileHelperModel
         parent::setUp();
 
         $this->setDb('mysql');
-
     }
 }
