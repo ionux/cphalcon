@@ -63,7 +63,10 @@ class UnitTest extends PhTestUnitTestCase
 
         $this->cleanFile($this->logPath, $fileName);
 
-        $this->assertTrue($actual, 'File was not correctly created');
+        $this->assertTrue(
+            $actual,
+            'File was not correctly created'
+        );
     }
 
     /**
@@ -135,6 +138,7 @@ class UnitTest extends PhTestUnitTestCase
             $run,
             'Logger did not throw an exception'
         );
+
         $this->assertInstanceOf(
             '\Phalcon\Logger\Exception',
             $e,
@@ -185,14 +189,15 @@ class UnitTest extends PhTestUnitTestCase
         $logger->close();
 
         $contents = file($this->logPath . $fileName);
+        $found    = strpos($contents[0], '[DEBUG]');
 
-        $found = strpos($contents[0], '[DEBUG]');
         $this->assertTrue(
             $found !== FALSE,
             'Default logging is not set to DEBUG'
         );
 
         $found = strpos($contents[0], 'Hello');
+
         $this->assertTrue(
             $found !== FALSE,
             'Default logging does not set correct message'
@@ -216,14 +221,15 @@ class UnitTest extends PhTestUnitTestCase
         $logger->close();
 
         $contents = file($this->logPath . $fileName);
+        $found    = strpos($contents[0], '[ERROR]');
 
-        $found = strpos($contents[0], '[ERROR]');
         $this->assertTrue(
             $found !== FALSE,
             'Error logging is not set to ERROR'
         );
 
         $found = strpos($contents[0], 'Hello');
+
         $this->assertTrue(
             $found !== FALSE,
             'Error logging does not set correct message'
@@ -247,14 +253,15 @@ class UnitTest extends PhTestUnitTestCase
         $logger->close();
 
         $contents = file($this->logPath . $fileName);
+        $found    = strpos($contents[0], '[DEBUG]');
 
-        $found = strpos($contents[0], '[DEBUG]');
         $this->assertTrue(
             $found !== FALSE,
             'Debug logging is not set to DEBUG'
         );
 
         $found = strpos($contents[0], 'Hello');
+
         $this->assertTrue(
             $found !== FALSE,
             'Debug logging does not set correct message'
@@ -278,14 +285,15 @@ class UnitTest extends PhTestUnitTestCase
         $logger->close();
 
         $contents = file($this->logPath . $fileName);
+        $found    = strpos($contents[0], '[NOTICE]');
 
-        $found = strpos($contents[0], '[NOTICE]');
         $this->assertTrue(
             $found !== FALSE,
             'Notice logging is not set to NOTICE'
         );
 
         $found = strpos($contents[0], 'Hello');
+
         $this->assertTrue(
             $found !== FALSE,
             'Notice logging does not set correct message'
@@ -309,14 +317,15 @@ class UnitTest extends PhTestUnitTestCase
         $logger->close();
 
         $contents = file($this->logPath . $fileName);
+        $found    = strpos($contents[0], '[INFO]');
 
-        $found = strpos($contents[0], '[INFO]');
         $this->assertTrue(
             $found !== FALSE,
             'Info logging is not set to INFO'
         );
 
         $found = strpos($contents[0], 'Hello');
+
         $this->assertTrue(
             $found !== FALSE,
             'Info logging does not set correct message'
@@ -340,14 +349,15 @@ class UnitTest extends PhTestUnitTestCase
         $logger->close();
 
         $contents = file($this->logPath . $fileName);
+        $found    = strpos($contents[0], '[WARNING]');
 
-        $found = strpos($contents[0], '[WARNING]');
         $this->assertTrue(
             $found !== FALSE,
             'Warning logging is not set to WARNING'
         );
 
         $found = strpos($contents[0], 'Hello');
+
         $this->assertTrue(
             $found !== FALSE,
             'Warning logging does not set correct message'
@@ -371,14 +381,15 @@ class UnitTest extends PhTestUnitTestCase
         $logger->close();
 
         $contents = file($this->logPath . $fileName);
+        $found    = strpos($contents[0], '[ALERT]');
 
-        $found = strpos($contents[0], '[ALERT]');
         $this->assertTrue(
             $found !== FALSE,
             'Alert logging is not set to ALERT'
         );
 
         $found = strpos($contents[0], 'Hello');
+
         $this->assertTrue(
             $found !== FALSE,
             'Alert logging does not set correct message'
@@ -479,7 +490,10 @@ class UnitTest extends PhTestUnitTestCase
 
         $this->cleanFile($this->logPath, $fileName);
 
-        $this->assertTrue($actual, 'File was not correctly created');
+        $this->assertTrue(
+            $actual,
+            'File was not correctly created'
+        );
     }
 
     /**
@@ -525,14 +539,15 @@ class UnitTest extends PhTestUnitTestCase
         $logger->close();
 
         $contents = file($this->logPath . $fileName);
+        $found    = strpos($contents[0], '[DEBUG]');
 
-        $found = strpos($contents[0], '[DEBUG]');
         $this->assertTrue(
             $found !== FALSE,
             'Debug logging is not set to DEBUG'
         );
 
         $found = strpos($contents[0], 'Hello');
+
         $this->assertTrue(
             $found !== FALSE,
             'Debug logging does not set correct message'
@@ -559,7 +574,10 @@ class UnitTest extends PhTestUnitTestCase
 
         $this->cleanFile($this->logPath, $fileName);
 
-        $this->assertTrue($actual, 'File was not correctly created');
+        $this->assertTrue(
+            $actual,
+            'File was not correctly created'
+        );
     }
 
     /**
@@ -605,14 +623,15 @@ class UnitTest extends PhTestUnitTestCase
         $logger->close();
 
         $contents = file($this->logPath . $fileName);
+        $found    = strpos($contents[0], '[ERROR]');
 
-        $found = strpos($contents[0], '[ERROR]');
         $this->assertTrue(
             $found !== FALSE,
             'Error logging is not set to ERROR'
         );
 
         $found = strpos($contents[0], 'Hello');
+
         $this->assertTrue(
             $found !== FALSE,
             'Error logging does not set correct message'
@@ -639,7 +658,10 @@ class UnitTest extends PhTestUnitTestCase
 
         $this->cleanFile($this->logPath, $fileName);
 
-        $this->assertTrue($actual, 'File was not correctly created');
+        $this->assertTrue(
+            $actual,
+            'File was not correctly created'
+        );
     }
 
     /**
@@ -685,14 +707,15 @@ class UnitTest extends PhTestUnitTestCase
         $logger->close();
 
         $contents = file($this->logPath . $fileName);
+        $found    = strpos($contents[0], '[INFO]');
 
-        $found = strpos($contents[0], '[INFO]');
         $this->assertTrue(
             $found !== FALSE,
             'Info logging is not set to INFO'
         );
 
         $found = strpos($contents[0], 'Hello');
+
         $this->assertTrue(
             $found !== FALSE,
             'Info logging does not set correct message'
@@ -719,7 +742,10 @@ class UnitTest extends PhTestUnitTestCase
 
         $this->cleanFile($this->logPath, $fileName);
 
-        $this->assertTrue($actual, 'File was not correctly created');
+        $this->assertTrue(
+            $actual,
+            'File was not correctly created
+        ');
     }
 
     /**
@@ -765,14 +791,15 @@ class UnitTest extends PhTestUnitTestCase
         $logger->close();
 
         $contents = file($this->logPath . $fileName);
+        $found    = strpos($contents[0], '[NOTICE]');
 
-        $found = strpos($contents[0], '[NOTICE]');
         $this->assertTrue(
             $found !== FALSE,
             'Notice logging is not set to NOTICE'
         );
 
         $found = strpos($contents[0], 'Hello');
+
         $this->assertTrue(
             $found !== FALSE,
             'Notice logging does not set correct message'
@@ -799,7 +826,10 @@ class UnitTest extends PhTestUnitTestCase
 
         $this->cleanFile($this->logPath, $fileName);
 
-        $this->assertTrue($actual, 'File was not correctly created');
+        $this->assertTrue(
+            $actual,
+            'File was not correctly created'
+        );
     }
 
     /**
@@ -847,12 +877,14 @@ class UnitTest extends PhTestUnitTestCase
         $contents = file($this->logPath . $fileName);
 
         $found = strpos($contents[0], '[WARNING]');
+
         $this->assertTrue(
             $found !== FALSE,
             'Warning logging is not set to WARNING'
         );
 
         $found = strpos($contents[0], 'Hello');
+
         $this->assertTrue(
             $found !== FALSE,
             'Warning logging does not set correct message'
@@ -879,7 +911,10 @@ class UnitTest extends PhTestUnitTestCase
 
         $this->cleanFile($this->logPath, $fileName);
 
-        $this->assertTrue($actual, 'File was not correctly created');
+        $this->assertTrue(
+            $actual,
+            'File was not correctly created'
+        );
     }
 
     /**
@@ -925,14 +960,15 @@ class UnitTest extends PhTestUnitTestCase
         $logger->close();
 
         $contents = file($this->logPath . $fileName);
+        $found    = strpos($contents[0], '[ALERT]');
 
-        $found = strpos($contents[0], '[ALERT]');
         $this->assertTrue(
             $found !== FALSE,
             'Alert logging is not set to ALERT'
         );
 
         $found = strpos($contents[0], 'Hello');
+
         $this->assertTrue(
             $found !== FALSE,
             'Alert logging does not set correct message'
@@ -950,12 +986,11 @@ class UnitTest extends PhTestUnitTestCase
     public function testSetGetFormat()
     {
         $formatter = new PhLoggerFormatterLine();
+        $format    = '%type%|%date%|%message%';
 
-        $format = '%type%|%date%|%message%';
         $formatter->setFormat($format);
 
-        $actual = $formatter->getFormat();
-
+        $actual   = $formatter->getFormat();
         $expected = $format;
 
         $this->assertEquals(
@@ -973,10 +1008,8 @@ class UnitTest extends PhTestUnitTestCase
      */
     public function testNewFormatLogsCorrectly()
     {
-        $fileName = $this->getFileName('log', 'log');
-
-        $logger = new PhLoggerAdapterFile($this->logPath . $fileName);
-
+        $fileName  = $this->getFileName('log', 'log');
+        $logger    = new PhLoggerAdapterFile($this->logPath . $fileName);
         $formatter = new PhLoggerFormatterLine('%type%|%date%|%message%');
 
         $logger->setFormatter($formatter);
@@ -985,6 +1018,7 @@ class UnitTest extends PhTestUnitTestCase
 
         $contents = file($this->logPath . $fileName);
         $message  = explode('|', $contents[0]);
+
         $this->cleanFile($this->logPath, $fileName);
 
         $this->assertEquals(
@@ -992,6 +1026,7 @@ class UnitTest extends PhTestUnitTestCase
             $message[0],
             'New format, type not set correctly'
         );
+
         $this->assertEquals(
             'Hello' . PHP_EOL,
             $message[2],
@@ -1007,10 +1042,8 @@ class UnitTest extends PhTestUnitTestCase
      */
     public function testNewFormatFormatsDateCorrectly()
     {
-        $fileName = $this->getFileName('log', 'log');
-
-        $logger = new PhLoggerAdapterFile($this->logPath . $fileName);
-
+        $fileName  = $this->getFileName('log', 'log');
+        $logger    = new PhLoggerAdapterFile($this->logPath . $fileName);
         $formatter = new PhLoggerFormatterLine('%type%|%date%|%message%');
 
         $logger->setFormatter($formatter);
@@ -1019,10 +1052,10 @@ class UnitTest extends PhTestUnitTestCase
 
         $contents = file($this->logPath . $fileName);
         $message  = explode('|', $contents[0]);
+
         $this->cleanFile($this->logPath, $fileName);
 
-        $date = new \DateTime($message[1]);
-
+        $date     = new \DateTime($message[1]);
         $expected = date('Y-m-d H');
         $actual   = $date->format('Y-m-d H');
 
@@ -1042,8 +1075,8 @@ class UnitTest extends PhTestUnitTestCase
     public function testCommit()
     {
         $fileName = $this->getFileName('log', 'log');
+        $logger   = new PhLoggerAdapterFile($this->logPath . $fileName);
 
-        $logger = new PhLoggerAdapterFile($this->logPath . $fileName);
         $logger->log('Hello');
 
         $contents = file($this->logPath . $fileName);
@@ -1057,13 +1090,10 @@ class UnitTest extends PhTestUnitTestCase
         );
 
         $logger->begin();
-
         $logger->log('Message 1');
         $logger->log('Message 2');
         $logger->log('Message 3');
-
         $logger->commit();
-
         $logger->close();
 
         $contents = file($this->logPath . $fileName);
@@ -1088,8 +1118,8 @@ class UnitTest extends PhTestUnitTestCase
     public function testRollback()
     {
         $fileName = $this->getFileName('log', 'log');
+        $logger   = new PhLoggerAdapterFile($this->logPath . $fileName);
 
-        $logger = new PhLoggerAdapterFile($this->logPath . $fileName);
         $logger->log('Hello');
 
         $contents = file($this->logPath . $fileName);
@@ -1103,13 +1133,10 @@ class UnitTest extends PhTestUnitTestCase
         );
 
         $logger->begin();
-
         $logger->log('Message 1');
         $logger->log('Message 2');
         $logger->log('Message 3');
-
         $logger->rollback();
-
         $logger->close();
 
         $contents = file($this->logPath . $fileName);
