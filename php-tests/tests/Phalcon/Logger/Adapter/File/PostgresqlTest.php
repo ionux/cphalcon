@@ -31,6 +31,5 @@ class PostgresqlTest extends LoggerAdapterFileHelperModel
         parent::setUp();
 
         $this->setDb('postgresql');
-
     }
 }
