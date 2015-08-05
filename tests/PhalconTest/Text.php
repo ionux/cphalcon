@@ -7,7 +7,7 @@
  *
  * PhalconPHP Framework
  *
- * @copyright (c) 2011-2014 Phalcon Team
+ * @copyright (c) 2011-2015 Phalcon Team
  * @link      http://www.phalconphp.com
  * @author    Andres Gutierrez <andres@phalconphp.com>
  * @author    Nikolaos Dimopoulos <nikos@phalconphp.com>
@@ -36,7 +36,7 @@ class Text extends PhText
 		return parent::uncamelize($str);
 	}
 
-	public static function increment($str, $separator = "_")
+	public static function increment($str, $separator = '_')
 	{
 		return parent::increment($str, $separator);
 	}
@@ -80,5 +80,4 @@ class Text extends PhText
 	{
 		return parent::dynamic($text, $leftDelimiter, $rightDelimiter, $separator);
 	}
-
 }
