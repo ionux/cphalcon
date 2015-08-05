@@ -31,6 +31,5 @@ class SqliteTest extends LoggerAdapterFileHelperModel
         parent::setUp();
 
         $this->setDb('sqlite');
-
     }
 }
