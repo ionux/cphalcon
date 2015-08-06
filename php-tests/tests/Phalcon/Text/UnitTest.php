@@ -7,7 +7,7 @@
  *
  * PhalconPHP Framework
  *
- * @copyright (c) 2011-2014 Phalcon Team
+ * @copyright (c) 2011-2015 Phalcon Team
  * @link      http://www.phalconphp.com
  * @author    Andres Gutierrez <andres@phalconphp.com>
  * @author    Nikolaos Dimopoulos <nikos@phalconphp.com>
@@ -71,7 +71,6 @@ class UnitTest extends PhTestUnitTestCase
      */
     public function testUncamelizeString()
     {
-
         $uncamelizeTests = array (
             'camelize'        => 'camelize',
             'CameLiZe'        => 'came_li_ze',
@@ -149,7 +148,7 @@ class UnitTest extends PhTestUnitTestCase
 
     public function testRandomAlnum()
     {
-        for ($i = 1; $i<10; $i++) {
+        for ($i = 1; $i < 10; $i++) {
             $text = PhText::random(PhText::RANDOM_ALNUM, $i);
             $this->assertEquals(preg_match('/[a-zA-Z0-9]+/', $text, $matches), 1);
             $this->assertEquals($matches[0], $text);
@@ -159,7 +158,7 @@ class UnitTest extends PhTestUnitTestCase
 
     public function testRandomAlpha()
     {
-        for ($i = 1; $i<10; $i++) {
+        for ($i = 1; $i < 10; $i++) {
             $text = PhText::random(PhText::RANDOM_ALPHA, $i);
             $this->assertEquals(preg_match('/[a-zA-Z]+/', $text, $matches), 1);
             $this->assertEquals($matches[0], $text);
@@ -169,7 +168,7 @@ class UnitTest extends PhTestUnitTestCase
 
     public function testRandomHexDec()
     {
-        for ($i = 1; $i<10; $i++) {
+        for ($i = 1; $i < 10; $i++) {
             $text = PhText::random(PhText::RANDOM_HEXDEC, $i);
             $this->assertEquals(preg_match('/[a-f0-9]+/', $text, $matches), 1);
             $this->assertEquals($matches[0], $text);
@@ -179,7 +178,7 @@ class UnitTest extends PhTestUnitTestCase
 
     public function testRandomNumeric()
     {
-        for ($i = 1; $i<10; $i++) {
+        for ($i = 1; $i < 10; $i++) {
             $text = PhText::random(PhText::RANDOM_NUMERIC, $i);
             $this->assertEquals(preg_match('/[0-9]+/', $text, $matches), 1);
             $this->assertEquals($matches[0], $text);
@@ -189,7 +188,7 @@ class UnitTest extends PhTestUnitTestCase
 
     public function testRandomNonZero()
     {
-        for ($i = 1; $i<10; $i++) {
+        for ($i = 1; $i < 10; $i++) {
             $text = PhText::random(PhText::RANDOM_NOZERO, $i);
             $this->assertEquals(preg_match('/[1-9]+/', $text, $matches), 1);
             $this->assertEquals($matches[0], $text);
