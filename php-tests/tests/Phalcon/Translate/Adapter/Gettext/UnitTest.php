@@ -7,7 +7,7 @@
  *
  * PhalconPHP Framework
  *
- * @copyright (c) 2011-2014 Phalcon Team
+ * @copyright (c) 2011-2015 Phalcon Team
  * @link      http://www.phalconphp.com
  * @author    Andres Gutierrez <andres@phalconphp.com>
  * @author    Thien Tran <fcduythien@gmail.com>
@@ -39,16 +39,15 @@ class UnitTest extends PhTestUnitTestCase
         $translator = new PhTranslateAdapterGettext([
             'locale'             => 'vi_VN',
             'defaultDomain'      => 'messages',
-            'directory'          => __DIR__ .'/locale'
+            'directory'          => __DIR__  . '/locale'
         ]);
-        $name  =  "Thien";
+
+        $name  =  'Thien';
         $textA =  printf("Xin chào, Thien, nó là tốt đẹp để xem bạn ngày hôm nay\n", $name);
         $textB =  printf($translator->t("Hello, %s, it is nice to see you today\n"), $name);
 
         $this->assertEquals('Xin chào', $translator->t('Hello'));
         $this->assertEquals($textA, $textB);
-
-
     }
     /**
      * Tests testQueryGermany
@@ -60,8 +59,9 @@ class UnitTest extends PhTestUnitTestCase
         $translator = new PhTranslateAdapterGettext([
             'locale'             => 'de_DE',
             'defaultDomain'      => 'messages',
-            'directory'          => __DIR__. '/locale'
+            'directory'          => __DIR__ . '/locale'
         ]);
+
         $this->assertEquals('Hallo', $translator->t('Hello'));
     }
 
@@ -75,8 +75,9 @@ class UnitTest extends PhTestUnitTestCase
         $translator = new PhTranslateAdapterGettext([
             'locale'             => 'es_ES',
             'defaultDomain'      => 'messages',
-            'directory'          => __DIR__. '/locale'
+            'directory'          => __DIR__ . '/locale'
         ]);
-        $this->assertEquals('Hallo', $translator->t('Hello'));
+
+        $this->assertEquals('Hola', $translator->t('Hello'));
     }
 }
