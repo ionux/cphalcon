@@ -7,7 +7,7 @@
  *
  * PhalconPHP Framework
  *
- * @copyright (c) 2011-2014 Phalcon Team
+ * @copyright (c) 2011-2015 Phalcon Team
  * @link      http://www.phalconphp.com
  * @author    Andres Gutierrez <andres@phalconphp.com>
  * @author    Nikolaos Dimopoulos <nikos@phalconphp.com>
@@ -28,37 +28,51 @@ use \Phalcon\Translate\Exception as PhTranslateException;
 
 class UnitTest extends PhTestUnitTestCase
 {
-	/**
-	 * Tests IndexedArray interpolator
-	 *
-	 * @author Paulius Petronis <paulius@petronis.eu>
-	 * @since  2015-07-13
-	 */
-	public function testIndexedArrayReplace()
-	{
-		$interpolator = new \Phalcon\Translate\Interpolator\IndexedArray();
+    /**
+     * Tests IndexedArray interpolator
+     *
+     * @author Paulius Petronis <paulius@petronis.eu>
+     * @since  2015-07-13
+     */
+    public function testIndexedArrayReplace()
+    {
+        $interpolator = new \Phalcon\Translate\Interpolator\IndexedArray();
 
-		$stringFrom = 'Hello, %s %s %s';
-		$replacedString = $interpolator->replacePlaceholders($stringFrom, array('John', 'D.', 'Doe'));
-		$expected = 'Hello, John D. Doe!';
+        $stringFrom     = 'Hello, %s %s %s';
+        $expected       = 'Hello, John D. Doe!';
+        $replacedString = $interpolator->replacePlaceholders(
+            $stringFrom,
+            array(
+                'John',
+                'D.',
+                'Doe',
+            )
+        );
 
-		$this->assertEquals($replacedString, $expected);
-	}
+        $this->assertEquals($replacedString, $expected);
+    }
 
-	/**
-	 * Tests AssociativeArray interpolator
-	 *
-	 * @author Paulius Petronis <paulius@petronis.eu>
-	 * @since  2015-07-13
-	 */
-	public function testAssociativeArrayReplace()
-	{
-		$interpolator = new \Phalcon\Translate\Interpolator\AssociativeArray();
+    /**
+     * Tests AssociativeArray interpolator
+     *
+     * @author Paulius Petronis <paulius@petronis.eu>
+     * @since  2015-07-13
+     */
+    public function testAssociativeArrayReplace()
+    {
+        $interpolator = new \Phalcon\Translate\Interpolator\AssociativeArray();
 
-		$stringFrom = 'Hello, %fname% %mname% %lname%!';
-		$replacedString = $interpolator->replacePlaceholders($stringFrom, array('fname' => 'John', 'lname' => 'Doe', 'mname' => 'D.'));
-		$expected = 'Hello, John D. Doe!';
+        $stringFrom     = 'Hello, %fname% %mname% %lname%!';
+        $expected       = 'Hello, John D. Doe!';
+        $replacedString = $interpolator->replacePlaceholders(
+            $stringFrom,
+            array(
+                'fname' => 'John',
+                'lname' => 'Doe',
+                'mname' => 'D.',
+            )
+        );
 
-		$this->assertEquals($replacedString, $expected);
-	}
+        $this->assertEquals($replacedString, $expected);
+    }
 }
