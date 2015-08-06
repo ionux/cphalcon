@@ -7,7 +7,7 @@
  *
  * PhalconPHP Framework
  *
- * @copyright (c) 2011-2014 Phalcon Team
+ * @copyright (c) 2011-2015 Phalcon Team
  * @link      http://www.phalconphp.com
  * @author    Andres Gutierrez <andres@phalconphp.com>
  * @author    Nikolaos Dimopoulos <nikos@phalconphp.com>
@@ -29,6 +29,31 @@ use \Phalcon\Translate\Adapter\NativeArray as PhTranslateAdapterNativeArray;
 
 class UnitTest extends PhTestUnitTestCase
 {
+    protected $langEN;
+    protected $langES;
+    protected $langFR;
+    protected $paramsEN;
+    protected $paramsES;
+    protected $paramsFR;
+    protected $transEN;
+    protected $transES;
+    protected $transFR;
+
+    public function setup()
+    {
+        $this->langEN   = $this->config['tr']['en'];
+        $this->paramsEN = array('content' => $this->langEN);
+        $this->transEN  = new PhTranslateAdapterNativeArray($this->paramsEN);
+
+        $this->langES   = $this->config['tr']['es'];
+        $this->paramsES = array('content' => $this->langES);
+        $this->transES  = new PhTranslateAdapterNativeArray($this->paramsES);
+
+        $this->langFR   = $this->config['tr']['fr'];
+        $this->paramsFR = array('content' => $this->langFR);
+        $this->transFR  = new PhTranslateAdapterNativeArray($this->paramsFR);
+    }
+
     /**
      * Tests Exists
      *
@@ -37,15 +62,11 @@ class UnitTest extends PhTestUnitTestCase
      */
     public function testExists()
     {
-        $language   = $this->config['tr']['en'];
-        $params     = array('content' => $language);
-        $translator = new PhTranslateAdapterNativeArray($params);
-
-        $found = $translator->exists('hi');
+        $found = $this->transEN->exists('hi');
 
         $this->assertTrue(
             $found,
-            'Translator key does not exist'
+            'EN translator key does not exist'
         );
     }
 
@@ -57,15 +78,11 @@ class UnitTest extends PhTestUnitTestCase
      */
     public function testOffsetExists()
     {
-        $language   = $this->config['tr']['en'];
-        $params     = array('content' => $language);
-        $translator = new PhTranslateAdapterNativeArray($params);
-
-        $found = $translator->offsetExists('hi');
+        $found = $this->transEN->offsetExists('hi');
 
         $this->assertTrue(
             $found,
-            'Translator key does not exist'
+            'EN translator offset does not exist'
         );
     }
 
@@ -77,17 +94,13 @@ class UnitTest extends PhTestUnitTestCase
      */
     public function testOffsetGet()
     {
-        $language   = $this->config['tr']['en'];
-        $params     = array('content' => $language);
-        $translator = new PhTranslateAdapterNativeArray($params);
-
         $expected = 'Hello';
-        $actual   = $translator->offsetGet('hi');
+        $actual   = $this->transEN->offsetGet('hi');
 
         $this->assertEquals(
             $expected,
             $actual,
-            'Translator does not return proper string with offsetGet'
+            'EN translator does not return proper string with offsetGet'
         );
     }
 
@@ -99,26 +112,22 @@ class UnitTest extends PhTestUnitTestCase
      */
     public function testQueryEnglish()
     {
-        $language   = $this->config['tr']['en'];
-        $params     = array('content' => $language);
-        $translator = new PhTranslateAdapterNativeArray($params);
-
         $expected = 'Hello';
-        $actual   = $translator->query('hi');
+        $actual   = $this->transEN->query('hi');
 
         $this->assertEquals(
             $expected,
             $actual,
-            'Translator does not translate English correctly'
+            'EN translator does not translate the phrase "Hello" correctly'
         );
 
         $expected = 'Good Bye';
-        $actual   = $translator->query('bye');
+        $actual   = $this->transEN->query('bye');
 
         $this->assertEquals(
             $expected,
             $actual,
-            'Translator does not translate English correctly'
+            'EN translator does not translate the phrase "Good Bye" correctly'
         );
     }
 
@@ -130,26 +139,22 @@ class UnitTest extends PhTestUnitTestCase
      */
     public function testQuerySpanish()
     {
-        $language   = $this->config['tr']['es'];
-        $params     = array('content' => $language);
-        $translator = new PhTranslateAdapterNativeArray($params);
-
         $expected = 'Hola';
-        $actual   = $translator->query('hi');
+        $actual   = $this->transES->query('hi');
 
         $this->assertEquals(
             $expected,
             $actual,
-            'Translator does not translate Spanish correctly'
+            'ES translator does not translate the phrase "Hola" correctly'
         );
 
         $expected = 'Adiós';
-        $actual   = $translator->query('bye');
+        $actual   = $this->transES->query('bye');
 
         $this->assertEquals(
             $expected,
             $actual,
-            'Translator does not translate Spanish correctly'
+            'ES translator does not translate the phrase "Adiós" correctly'
         );
     }
 
@@ -161,26 +166,22 @@ class UnitTest extends PhTestUnitTestCase
      */
     public function testQueryFrench()
     {
-        $language   = $this->config['tr']['fr'];
-        $params     = array('content' => $language);
-        $translator = new PhTranslateAdapterNativeArray($params);
-
         $expected = 'Bonjour';
-        $actual   = $translator->query('hi');
+        $actual   = $this->transFR->query('hi');
 
         $this->assertEquals(
             $expected,
             $actual,
-            'Translator does not translate French correctly'
+            'FR translator does not translate the phrase "Bonjour" correctly'
         );
 
         $expected = 'Au revoir';
-        $actual   = $translator->query('bye');
+        $actual   = $this->transFR->query('bye');
 
         $this->assertEquals(
             $expected,
             $actual,
-            'Translator does not translate French correctly'
+            'FR translator does not translate the phrase "Au revoir" correctly'
         );
     }
 
@@ -192,26 +193,22 @@ class UnitTest extends PhTestUnitTestCase
      */
     public function testQueryEnglishAlternative()
     {
-        $language   = $this->config['tr']['en'];
-        $params     = array('content' => $language);
-        $translator = new PhTranslateAdapterNativeArray($params);
-
         $expected = 'Hello';
-        $actual   = $translator->_('hi');
+        $actual   = $this->transEN->_('hi');
 
         $this->assertEquals(
             $expected,
             $actual,
-            'Translator does not translate English correctly'
+            'EN alternative translator does not translate the phrase "Hello" correctly'
         );
 
         $expected = 'Good Bye';
-        $actual   = $translator->_('bye');
+        $actual   = $this->transEN->_('bye');
 
         $this->assertEquals(
             $expected,
             $actual,
-            'Translator does not translate English correctly'
+            'EN alternative translator does not translate the phrase "Good Bye" correctly'
         );
     }
 
@@ -223,21 +220,17 @@ class UnitTest extends PhTestUnitTestCase
      */
     public function testQuerySpanishAlternative()
     {
-        $language   = $this->config['tr']['es'];
-        $params     = array('content' => $language);
-        $translator = new PhTranslateAdapterNativeArray($params);
-
         $expected = 'Hola';
-        $actual   = $translator->_('hi');
+        $actual   = $this->transES->_('hi');
 
         $this->assertEquals(
             $expected,
             $actual,
-            'Translator does not translate Spanish correctly'
+            'ES alternative translator does not translate the phrase "Hello" correctly'
         );
 
         $expected = 'Adiós';
-        $actual   = $translator->_('bye');
+        $actual   = $this->transES->_('bye');
 
         $this->assertEquals(
             $expected,
