@@ -23,10 +23,13 @@
 namespace Phalcon\Mvc\Model\Query\Builder;
 
 use Phalcon\Test\UnitTestCase as PhTestUnitTestCase;
-use Phalcon\Mvc\Model\Query\Builder;
+
 use Phalcon\DI;
+
 use Phalcon\Mvc\Model\Manager;
+use Phalcon\Mvc\Model\Query\Builder;
 use Phalcon\Mvc\Model\Metadata\Memory;
+
 use Phalcon\Db\Adapter\Pdo\Mysql;
 
 class UnitTest extends PhTestUnitTestCase
@@ -44,7 +47,8 @@ class UnitTest extends PhTestUnitTestCase
     public function modelsAutoloader($className)
     {
         $className = str_replace("\\", DIRECTORY_SEPARATOR, $className);
-        $path = PATH_MODELS . $className . '.php';
+        $path      = PATH_MODELS . $className . '.php';
+
         if (file_exists($path)) {
             require $path;
         }
@@ -81,230 +85,660 @@ class UnitTest extends PhTestUnitTestCase
         return $di;
     }
 
-    public function testAction()
+    public function testSqlActionOne()
     {
         require PATH_CONFIG . 'config.db.php';
+
         if (empty($configMysql)) {
-            $this->markTestSkipped("Test skipped");
+            $this->markTestSkipped('Test SqlActionOne skipped');
             return;
         }
 
-        $di = $this->_getDI();
-
+        $di      = $this->_getDI();
         $builder = new Builder();
+
         $phql = $builder->setDi($di)
             ->from('Robots')
             ->getPhql();
-        $this->assertEquals($phql, 'SELECT [Robots].* FROM [Robots]');
+    
+        $this->assertEquals(
+            $phql,
+            'SELECT [Robots].* FROM [Robots]'
+        );
+    }
 
+    public function testSqlActionTwo()
+    {
+        require PATH_CONFIG . 'config.db.php';
+
+        if (empty($configMysql)) {
+            $this->markTestSkipped('Test SqlActionTwo skipped');
+            return;
+        }
+
+        $di      = $this->_getDI();
         $builder = new Builder();
+
         $phql = $builder->setDi($di)
-            ->from(array('Robots', 'RobotsParts'))
+            ->from(
+                array(
+                    'Robots',
+                    'RobotsParts'
+                )
+            )
             ->getPhql();
-        $this->assertEquals($phql, 'SELECT [Robots].*, [RobotsParts].* FROM [Robots], [RobotsParts]');
+    
+        $this->assertEquals(
+            $phql,
+            'SELECT [Robots].*, [RobotsParts].* FROM [Robots], [RobotsParts]'
+        );
+    }
 
+    public function testSqlActionThree()
+    {
+        require PATH_CONFIG . 'config.db.php';
+
+        if (empty($configMysql)) {
+            $this->markTestSkipped('Test SqlActionThree skipped');
+            return;
+        }
+
+        $di      = $this->_getDI();
         $builder = new Builder();
+
         $phql = $builder->setDi($di)
             ->columns('*')
             ->from('Robots')
             ->getPhql();
-        $this->assertEquals($phql, 'SELECT * FROM [Robots]');
 
+        $this->assertEquals(
+            $phql,
+            'SELECT * FROM [Robots]'
+        );
+    }
+
+    public function testSqlActionFour()
+    {
+        require PATH_CONFIG . 'config.db.php';
+
+        if (empty($configMysql)) {
+            $this->markTestSkipped('Test SqlActionFour skipped');
+            return;
+        }
+
+        $di      = $this->_getDI();
         $builder = new Builder();
+
         $phql = $builder->setDi($di)
-            ->columns(array('id', 'name'))
+            ->columns(
+                array(
+                    'id',
+                    'name'
+                )
+            )
             ->from('Robots')
             ->getPhql();
-        $this->assertEquals($phql, 'SELECT id, name FROM [Robots]');
+    
+        $this->assertEquals(
+            $phql,
+            'SELECT id, name FROM [Robots]'
+        );
+    }
 
+    public function testSqlActionFive()
+    {
+        require PATH_CONFIG . 'config.db.php';
+
+        if (empty($configMysql)) {
+            $this->markTestSkipped('Test SqlActionFive skipped');
+            return;
+        }
+
+        $di      = $this->_getDI();
         $builder = new Builder();
+
         $phql = $builder->setDi($di)
             ->columns('id')
             ->from('Robots')
             ->getPhql();
-        $this->assertEquals($phql, 'SELECT id FROM [Robots]');
+    
+        $this->assertEquals(
+            $phql,
+            'SELECT id FROM [Robots]'
+        );
+    }
 
+    public function testSqlActionSix()
+    {
+        require PATH_CONFIG . 'config.db.php';
+
+        if (empty($configMysql)) {
+            $this->markTestSkipped('Test SqlActionSix skipped');
+            return;
+        }
+
+        $di      = $this->_getDI();
         $builder = new Builder();
+
         $phql = $builder->setDi($di)
             ->from('Robots')
             ->where('Robots.name = "Voltron"')
             ->getPhql();
-        $this->assertEquals($phql, 'SELECT [Robots].* FROM [Robots] WHERE Robots.name = "Voltron"');
 
+        $this->assertEquals(
+            $phql,
+            'SELECT [Robots].* FROM [Robots] WHERE Robots.name = "Voltron"'
+        );
+    }
+
+    public function testSqlActionSeven()
+    {
+        require PATH_CONFIG . 'config.db.php';
+
+        if (empty($configMysql)) {
+            $this->markTestSkipped('Test SqlActionSeven skipped');
+            return;
+        }
+
+        $di      = $this->_getDI();
         $builder = new Builder();
+
         $phql = $builder->setDi($di)
             ->from('Robots')
             ->where('Robots.name = "Voltron"')
             ->andWhere('Robots.id > 100')
             ->getPhql();
-        $this->assertEquals($phql, 'SELECT [Robots].* FROM [Robots] WHERE (Robots.name = "Voltron") AND (Robots.id > 100)');
 
+        $this->assertEquals(
+            $phql,
+            'SELECT [Robots].* FROM [Robots] WHERE (Robots.name = "Voltron") AND (Robots.id > 100)'
+        );
+    }
+
+    public function testSqlActionEight()
+    {
+        require PATH_CONFIG . 'config.db.php';
+
+        if (empty($configMysql)) {
+            $this->markTestSkipped('Test SqlActionEight skipped');
+            return;
+        }
+
+        $di      = $this->_getDI();
         $builder = new Builder();
+
         $phql = $builder->setDi($di)
             ->from('Robots')
             ->where('Robots.name = "Voltron"')
             ->orWhere('Robots.id > 100')
             ->getPhql();
-        $this->assertEquals($phql, 'SELECT [Robots].* FROM [Robots] WHERE (Robots.name = "Voltron") OR (Robots.id > 100)');
 
+        $this->assertEquals(
+            $phql,
+            'SELECT [Robots].* FROM [Robots] WHERE (Robots.name = "Voltron") OR (Robots.id > 100)'
+        );
+    }
+
+    public function testSqlActionNine()
+    {
+        require PATH_CONFIG . 'config.db.php';
+
+        if (empty($configMysql)) {
+            $this->markTestSkipped('Test SqlActionNine skipped');
+            return;
+        }
+
+        $di      = $this->_getDI();
         $builder = new Builder();
+
         $phql = $builder->setDi($di)
             ->from('Robots')
             ->where(100)
             ->getPhql();
-        $this->assertEquals($phql, 'SELECT [Robots].* FROM [Robots] WHERE [Robots].[id] = 100');
 
+        $this->assertEquals(
+            $phql,
+            'SELECT [Robots].* FROM [Robots] WHERE [Robots].[id] = 100'
+        );
+    }
+
+    public function testSqlActionTen()
+    {
+        require PATH_CONFIG . 'config.db.php';
+
+        if (empty($configMysql)) {
+            $this->markTestSkipped('Test SqlActionTen skipped');
+            return;
+        }
+
+        $di      = $this->_getDI();
         $builder = new Builder();
+
         $phql = $builder->setDi($di)
             ->from('Robots')
             ->groupBy('Robots.name')
             ->getPhql();
-        $this->assertEquals($phql, 'SELECT [Robots].* FROM [Robots] GROUP BY Robots.name');
 
+        $this->assertEquals(
+            $phql,
+            'SELECT [Robots].* FROM [Robots] GROUP BY Robots.name'
+        );
+    }
+
+    public function testSqlActionEleven()
+    {
+        require PATH_CONFIG . 'config.db.php';
+
+        if (empty($configMysql)) {
+            $this->markTestSkipped('Test SqlActionEleven skipped');
+            return;
+        }
+
+        $di      = $this->_getDI();
         $builder = new Builder();
+
         $phql = $builder->setDi($di)
             ->from('Robots')
-            ->groupBy(array('Robots.name', 'Robots.id'))
+            ->groupBy(
+                array(
+                    'Robots.name',
+                    'Robots.id'
+                )
+            )
             ->getPhql();
-        $this->assertEquals($phql, 'SELECT [Robots].* FROM [Robots] GROUP BY Robots.name, Robots.id');
 
+        $this->assertEquals(
+            $phql,
+            'SELECT [Robots].* FROM [Robots] GROUP BY Robots.name, Robots.id'
+        );
+    }
+
+    public function testSqlActionTwelve()
+    {
+        require PATH_CONFIG . 'config.db.php';
+
+        if (empty($configMysql)) {
+            $this->markTestSkipped('Test SqlActionTwelve skipped');
+            return;
+        }
+
+        $di      = $this->_getDI();
         $builder = new Builder();
+
         $phql = $builder->setDi($di)
-            ->columns(array('Robots.name', 'SUM(Robots.price)'))
+            ->columns(
+                array(
+                    'Robots.name',
+                    'SUM(Robots.price)'
+                )
+            )
             ->from('Robots')
             ->groupBy('Robots.name')
             ->getPhql();
-        $this->assertEquals($phql, 'SELECT Robots.name, SUM(Robots.price) FROM [Robots] GROUP BY Robots.name');
 
+        $this->assertEquals(
+            $phql,
+            'SELECT Robots.name, SUM(Robots.price) FROM [Robots] GROUP BY Robots.name'
+        );
+    }
+
+    public function testSqlActionThirteen()
+    {
+        require PATH_CONFIG . 'config.db.php';
+
+        if (empty($configMysql)) {
+            $this->markTestSkipped('Test SqlActionThirteen skipped');
+            return;
+        }
+
+        $di      = $this->_getDI();
         $builder = new Builder();
+
         $phql = $builder->setDi($di)
-            ->columns(array('Robots.name', 'SUM(Robots.price)'))
+            ->columns(
+                array(
+                    'Robots.name',
+                    'SUM(Robots.price)'
+                )
+            )
             ->from('Robots')
             ->groupBy('Robots.name')
             ->having('SUM(Robots.price) > 1000')
             ->getPhql();
-        $this->assertEquals($phql, 'SELECT Robots.name, SUM(Robots.price) FROM [Robots] GROUP BY Robots.name HAVING SUM(Robots.price) > 1000');
 
+        $this->assertEquals(
+            $phql,
+            'SELECT Robots.name, SUM(Robots.price) FROM [Robots] GROUP BY Robots.name HAVING SUM(Robots.price) > 1000'
+        );
+    }
+
+    public function testSqlActionFourteen()
+    {
+        require PATH_CONFIG . 'config.db.php';
+
+        if (empty($configMysql)) {
+            $this->markTestSkipped('Test SqlActionFourteen skipped');
+            return;
+        }
+
+        $di      = $this->_getDI();
         $builder = new Builder();
+
         $phql = $builder->setDi($di)
             ->from('Robots')
             ->join('RobotsParts')
             ->getPhql();
-        $this->assertEquals($phql, 'SELECT [Robots].* FROM [Robots] JOIN [RobotsParts]');
 
+        $this->assertEquals(
+            $phql,
+            'SELECT [Robots].* FROM [Robots] JOIN [RobotsParts]'
+        );
+    }
+
+    public function testSqlActionFifteen()
+    {
+        require PATH_CONFIG . 'config.db.php';
+
+        if (empty($configMysql)) {
+            $this->markTestSkipped('Test SqlActionFifteen skipped');
+            return;
+        }
+
+        $di      = $this->_getDI();
         $builder = new Builder();
+
         $phql = $builder->setDi($di)
             ->from('Robots')
             ->join('RobotsParts', null, 'p')
             ->getPhql();
-        $this->assertEquals($phql, 'SELECT [Robots].* FROM [Robots] JOIN [RobotsParts] AS [p]');
 
+        $this->assertEquals(
+            $phql,
+            'SELECT [Robots].* FROM [Robots] JOIN [RobotsParts] AS [p]'
+        );
+    }
+
+    public function testSqlActionSixteen()
+    {
+        require PATH_CONFIG . 'config.db.php';
+
+        if (empty($configMysql)) {
+            $this->markTestSkipped('Test SqlActionSixteen skipped');
+            return;
+        }
+
+        $di      = $this->_getDI();
         $builder = new Builder();
+
         $phql = $builder->setDi($di)
             ->from('Robots')
             ->join('RobotsParts', 'Robots.id = RobotsParts.robots_id', 'p')
             ->getPhql();
-        $this->assertEquals($phql, 'SELECT [Robots].* FROM [Robots] JOIN [RobotsParts] AS [p] ON Robots.id = RobotsParts.robots_id');
 
+        $this->assertEquals(
+            $phql,
+            'SELECT [Robots].* FROM [Robots] JOIN [RobotsParts] AS [p] ON Robots.id = RobotsParts.robots_id'
+        );
+    }
+
+    public function testSqlActionSeventeen()
+    {
+        require PATH_CONFIG . 'config.db.php';
+
+        if (empty($configMysql)) {
+            $this->markTestSkipped('Test SqlActionSeventeen skipped');
+            return;
+        }
+
+        $di      = $this->_getDI();
         $builder = new Builder();
+
         $phql = $builder->setDi($di)
             ->from('Robots')
             ->join('RobotsParts', 'Robots.id = RobotsParts.robots_id', 'p')
             ->join('Parts', 'Parts.id = RobotsParts.parts_id', 't')
             ->getPhql();
-        $this->assertEquals($phql, 'SELECT [Robots].* FROM [Robots] JOIN [RobotsParts] AS [p] ON Robots.id = RobotsParts.robots_id JOIN [Parts] AS [t] ON Parts.id = RobotsParts.parts_id');
 
+        $this->assertEquals(
+            $phql,
+            'SELECT [Robots].* FROM [Robots] JOIN [RobotsParts] AS [p] ON Robots.id = RobotsParts.robots_id JOIN [Parts] AS [t] ON Parts.id = RobotsParts.parts_id'
+        );
+    }
+
+    public function testSqlActionEighteen()
+    {
+        require PATH_CONFIG . 'config.db.php';
+
+        if (empty($configMysql)) {
+            $this->markTestSkipped('Test SqlActionEighteen skipped');
+            return;
+        }
+
+        $di      = $this->_getDI();
         $builder = new Builder();
+
         $phql = $builder->setDi($di)
             ->from('Robots')
             ->leftJoin('RobotsParts', 'Robots.id = RobotsParts.robots_id')
             ->leftJoin('Parts', 'Parts.id = RobotsParts.parts_id')
             ->where('Robots.id > 0')
             ->getPhql();
-        $this->assertEquals($phql, 'SELECT [Robots].* FROM [Robots] LEFT JOIN [RobotsParts] ON Robots.id = RobotsParts.robots_id LEFT JOIN [Parts] ON Parts.id = RobotsParts.parts_id WHERE Robots.id > 0');
 
+        $this->assertEquals(
+            $phql,
+            'SELECT [Robots].* FROM [Robots] LEFT JOIN [RobotsParts] ON Robots.id = RobotsParts.robots_id LEFT JOIN [Parts] ON Parts.id = RobotsParts.parts_id WHERE Robots.id > 0'
+        );
+    }
+
+    public function testSqlActionNineteen()
+    {
+        require PATH_CONFIG . 'config.db.php';
+
+        if (empty($configMysql)) {
+            $this->markTestSkipped('Test SqlActionNineteen skipped');
+            return;
+        }
+
+        $di      = $this->_getDI();
         $builder = new Builder();
+
         $phql = $builder->setDi($di)
             ->addFrom('Robots', 'r')
             ->getPhql();
-        $this->assertEquals($phql, 'SELECT [r].* FROM [Robots] AS [r]');
 
+        $this->assertEquals(
+            $phql,
+            'SELECT [r].* FROM [Robots] AS [r]'
+        );
+    }
+
+    public function testSqlActionTwenty()
+    {
+        require PATH_CONFIG . 'config.db.php';
+
+        if (empty($configMysql)) {
+            $this->markTestSkipped('Test SqlActionTwenty skipped');
+            return;
+        }
+
+        $di      = $this->_getDI();
         $builder = new Builder();
+
         $phql = $builder->setDi($di)
             ->from('Robots')
             ->addFrom('Parts', 'p')
             ->getPhql();
-        $this->assertEquals($phql, 'SELECT [Robots].*, [p].* FROM [Robots], [Parts] AS [p]');
 
+        $this->assertEquals(
+            $phql,
+            'SELECT [Robots].*, [p].* FROM [Robots], [Parts] AS [p]'
+        );
+    }
+
+    public function testSqlActionTwentyone()
+    {
+        require PATH_CONFIG . 'config.db.php';
+
+        if (empty($configMysql)) {
+            $this->markTestSkipped('Test SqlActionTwentyone skipped');
+            return;
+        }
+
+        $di      = $this->_getDI();
         $builder = new Builder();
+
         $phql = $builder->setDi($di)
             ->from(array('r' => 'Robots'))
             ->addFrom('Parts', 'p')
             ->getPhql();
-        $this->assertEquals($phql, 'SELECT [r].*, [p].* FROM [Robots] AS [r], [Parts] AS [p]');
 
+        $this->assertEquals(
+            $phql,
+            'SELECT [r].*, [p].* FROM [Robots] AS [r], [Parts] AS [p]'
+        );
+    }
 
+    public function testSqlActionTwentytwo()
+    {
+        require PATH_CONFIG . 'config.db.php';
+
+        if (empty($configMysql)) {
+            $this->markTestSkipped('Test SqlActionTwentytwo skipped');
+            return;
+        }
+
+        $di      = $this->_getDI();
         $builder = new Builder();
+
         $phql = $builder->setDi($di)
             ->from(array('r' => 'Robots', 'p' => 'Parts'))
             ->getPhql();
-        $this->assertEquals($phql, 'SELECT [r].*, [p].* FROM [Robots] AS [r], [Parts] AS [p]');
 
+        $this->assertEquals(
+            $phql,
+            'SELECT [r].*, [p].* FROM [Robots] AS [r], [Parts] AS [p]'
+        );
+    }
 
+    public function testSqlActionTwentythree()
+    {
+        require PATH_CONFIG . 'config.db.php';
+
+        if (empty($configMysql)) {
+            $this->markTestSkipped('Test SqlActionTwentythree skipped');
+            return;
+        }
+
+        $di      = $this->_getDI();
         $builder = new Builder();
+
         $phql = $builder->setDi($di)
             ->from('Robots')
             ->orderBy('Robots.name')
             ->getPhql();
-        $this->assertEquals($phql, 'SELECT [Robots].* FROM [Robots] ORDER BY Robots.name');
 
+        $this->assertEquals(
+            $phql,
+            'SELECT [Robots].* FROM [Robots] ORDER BY Robots.name'
+        );
+    }
+
+    public function testSqlActionTwentyfour()
+    {
+        require PATH_CONFIG . 'config.db.php';
+
+        if (empty($configMysql)) {
+            $this->markTestSkipped('Test SqlActionTwentyfour skipped');
+            return;
+        }
+
+        $di      = $this->_getDI();
         $builder = new Builder();
+
         $phql = $builder->setDi($di)
             ->from('Robots')
             ->orderBy(array(1, 'Robots.name'))
             ->getPhql();
-        $this->assertEquals($phql, 'SELECT [Robots].* FROM [Robots] ORDER BY 1, Robots.name');
 
+        $this->assertEquals(
+            $phql,
+            'SELECT [Robots].* FROM [Robots] ORDER BY 1, Robots.name'
+        );
+    }
+
+    public function testSqlActionTwentyfive()
+    {
+        require PATH_CONFIG . 'config.db.php';
+
+        if (empty($configMysql)) {
+            $this->markTestSkipped('Test SqlActionTwentyfive skipped');
+            return;
+        }
+
+        $di      = $this->_getDI();
         $builder = new Builder();
+
         $phql = $builder->setDi($di)
             ->from('Robots')
             ->limit(10)
             ->getPhql();
-        $this->assertEquals($phql, 'SELECT [Robots].* FROM [Robots] LIMIT 10');
 
+        $this->assertEquals(
+            $phql,
+            'SELECT [Robots].* FROM [Robots] LIMIT 10'
+        );
+    }
+
+    public function testSqlActionTwentysix()
+    {
+        require PATH_CONFIG . 'config.db.php';
+
+        if (empty($configMysql)) {
+            $this->markTestSkipped('Test SqlActionTwentysix skipped');
+            return;
+        }
+
+        $di      = $this->_getDI();
         $builder = new Builder();
+
         $phql = $builder->setDi($di)
             ->from('Robots')
             ->limit(10, 5)
             ->getPhql();
-        $this->assertEquals($phql, 'SELECT [Robots].* FROM [Robots] LIMIT 10 OFFSET 5');
+
+        $this->assertEquals(
+            $phql,
+            'SELECT [Robots].* FROM [Robots] LIMIT 10 OFFSET 5'
+        );
     }
 
     public function testIssue701()
     {
         require PATH_CONFIG . 'config.db.php';
+
         if (empty($configMysql)) {
-            $this->markTestSkipped("Test skipped");
+            $this->markTestSkipped('Test for Issue 701 skipped');
             return;
         }
 
-        $di = $this->_getDI();
-
+        $di      = $this->_getDI();
         $builder = new Builder();
+
         $phql = $builder->setDi($di)
             ->from('Robots')
             ->leftJoin('RobotsParts', 'Robots.id = RobotsParts.robots_id')
             ->leftJoin('Parts', 'Parts.id = RobotsParts.parts_id')
-            ->where('Robots.id > :1: AND Robots.id < :2:', array(1 => 0, 2 => 1000))
-        ;
+            ->where('Robots.id > :1: AND Robots.id < :2:', array(1 => 0, 2 => 1000));
 
         $params = $phql->getQuery()->getBindParams();
+
         $this->assertEquals($params[1], 0);
         $this->assertEquals($params[2], 1000);
 
         $phql->andWhere('Robots.name = :name:', array('name' => 'Voltron'));
 
         $params = $phql->getQuery()->getBindParams();
+
         $this->assertEquals($params[1], 0);
         $this->assertEquals($params[2], 1000);
         $this->assertEquals($params['name'], 'Voltron');
@@ -313,56 +747,76 @@ class UnitTest extends PhTestUnitTestCase
     public function testIssue1115()
     {
         require PATH_CONFIG . 'config.db.php';
+
         if (empty($configMysql)) {
-            $this->markTestSkipped("Test skipped");
+            $this->markTestSkipped('Test for Issue 1115 skipped');
             return;
         }
 
-        $di = $this->_getDI();
-
+        $di      = $this->_getDI();
         $builder = new Builder();
+
         $phql = $builder->setDi($di)
             ->columns(array('Robots.name'))
             ->from('Robots')
             ->having('Robots.price > 1000')
             ->getPhql();
-        $this->assertEquals($phql, 'SELECT Robots.name FROM [Robots] HAVING Robots.price > 1000');
+
+        $this->assertEquals(
+            $phql,
+            'SELECT Robots.name FROM [Robots] HAVING Robots.price > 1000'
+        );
     }
 
     public function testSelectDistinctAll()
     {
         require PATH_CONFIG . 'config.db.php';
+
         if (empty($configMysql)) {
-            $this->markTestSkipped("Test skipped");
+            $this->markTestSkipped('Test for Select Distinct All skipped');
             return;
         }
 
-        $di = $this->_getDI();
-
+        $di      = $this->_getDI();
         $builder = new Builder();
+
         $phql = $builder->setDi($di)
             ->distinct(true)
             ->columns(array('Robots.name'))
             ->from('Robots')
             ->getPhql();
-        $this->assertEquals($phql, 'SELECT DISTINCT Robots.name FROM [Robots]');
+
+        $this->assertEquals(
+            $phql,
+            'SELECT DISTINCT Robots.name FROM [Robots]'
+        );
 
         $builder = new Builder();
+
         $phql = $builder->setDi($di)
             ->distinct(false)
             ->columns(array('Robots.name'))
             ->from('Robots')
             ->getPhql();
-        $this->assertEquals($phql, 'SELECT ALL Robots.name FROM [Robots]');
+
+        $this->assertEquals(
+            $phql,
+            'SELECT ALL Robots.name FROM [Robots]'
+        );
 
         $builder = new Builder();
+
         $phql = $builder->setDi($di)
             ->distinct(true)
             ->distinct(null)
             ->columns(array('Robots.name'))
             ->from('Robots')
             ->getPhql();
-        $this->assertEquals($phql, 'SELECT Robots.name FROM [Robots]');
+
+        $this->assertEquals(
+            $phql,
+            'SELECT Robots.name FROM [Robots]'
+        );
     }
 
     /**
@@ -372,8 +826,9 @@ class UnitTest extends PhTestUnitTestCase
     public function testConstructor()
     {
         require PATH_CONFIG . 'config.db.php';
+
         if (empty($configMysql)) {
-            $this->markTestSkipped("Test skipped");
+            $this->markTestSkipped('Test for Constructor skipped');
             return;
         }
 
@@ -381,11 +836,21 @@ class UnitTest extends PhTestUnitTestCase
 
         $params = array(
             'models'     => 'Robots',
-            'columns'    => array('id', 'name', 'status'),
+            'columns'    => array(
+                'id',
+                'name',
+                'status',
+            ),
             'conditions' => "a > 5",
-            'group'      => array('type', 'source'),
+            'group'      => array(
+                'type',
+                'source',
+            ),
             'having'     => "b < 5",
-            'order'      => array('name', 'created'),
+            'order'      => array(
+                'name',
+                'created',
+                ),
             'limit'      => 10,
             'offset'     => 15,
         );
@@ -410,13 +875,13 @@ class UnitTest extends PhTestUnitTestCase
     public function testConstructorLimit()
     {
         require PATH_CONFIG . 'config.db.php';
+
         if (empty($configMysql)) {
-            $this->markTestSkipped("Test skipped");
+            $this->markTestSkipped('Test for Constructor Limit skipped');
             return;
         }
 
         // separate limit and offset
-
         $params = array(
             'models' => 'Robots',
             'limit'  => 10,
@@ -426,7 +891,6 @@ class UnitTest extends PhTestUnitTestCase
         $builderLimitAndOffset = new Builder($params);
 
         // separate limit with offset
-
         $params = array(
             'models' => 'Robots',
             'limit'  => array(10, 15),
@@ -454,21 +918,28 @@ class UnitTest extends PhTestUnitTestCase
     public function testConstructorConditions()
     {
         require PATH_CONFIG . 'config.db.php';
+
         if (empty($configMysql)) {
-            $this->markTestSkipped("Test skipped");
+            $this->markTestSkipped('Test for Constructor Conditions skipped');
             return;
         }
 
         $di = $this->_getDI();
 
         // ------------- test for setters(classic) way ----------------
-
         $standardBuilder = new Builder();
+
         $standardBuilder->from('Robots')
             ->where(
                 "year > :min: AND year < :max:",
-                array("min" => '2013-01-01',    'max' => '2100-01-01'),
-                array("min" => \PDO::PARAM_STR, 'max' => \PDO::PARAM_STR)
+                array(
+                    'min' => '2013-01-01',
+                    'max' => '2100-01-01'
+                ),
+                array(
+                    'min' => \PDO::PARAM_STR,
+                    'max' => \PDO::PARAM_STR
+                ),
             );
 
         $standardResult = $standardBuilder->getQuery()->execute();
@@ -479,8 +950,14 @@ class UnitTest extends PhTestUnitTestCase
             'conditions' => array(
                 array(
                     "year > :min: AND year < :max:",
-                    array("min" => '2013-01-01',    'max' => '2100-01-01'),
-                    array("min" => \PDO::PARAM_STR, 'max' => \PDO::PARAM_STR),
+                    array(
+                        'min' => '2013-01-01',
+                        'max' => '2100-01-01'
+                    ),
+                    array(
+                        'min' => \PDO::PARAM_STR,
+                        'max' => \PDO::PARAM_STR
+                    ),
                 ),
             ),
         );
@@ -489,19 +966,26 @@ class UnitTest extends PhTestUnitTestCase
         $singleConditionResult      = $builderWithSingleCondition->getQuery()->execute();
 
         // ------------- test for multiple conditions ----------------
-
         $params = array(
             'models'     => 'Robots',
             'conditions' => array(
                 array(
                     "year > :min:",
-                    array("min" => '2000-01-01'),
-                    array("min" => \PDO::PARAM_STR),
+                    array(
+                        'min' => '2000-01-01'
+                    ),
+                    array(
+                        'min' => \PDO::PARAM_STR
+                    ),
                 ),
                 array(
                     "year < :max:",
-                    array('max' => '2100-01-01'),
-                    array("max" => \PDO::PARAM_STR),
+                    array(
+                        'max' => '2100-01-01'
+                    ),
+                    array(
+                        'max' => \PDO::PARAM_STR
+                    ),
                 ),
             ),
         );
@@ -516,12 +1000,12 @@ class UnitTest extends PhTestUnitTestCase
         /* ------------ ASSERTING --------- */
 
         $this->assertEquals($expectedPhql, $standardBuilder->getPhql());
-        $this->assertInstanceOf("Phalcon\Mvc\Model\Resultset\Simple", $standardResult);
+        $this->assertInstanceOf('Phalcon\Mvc\Model\Resultset\Simple', $standardResult);
 
         $this->assertEquals($expectedPhql, $builderWithSingleCondition->getPhql());
-        $this->assertInstanceOf("Phalcon\Mvc\Model\Resultset\Simple", $singleConditionResult);
+        $this->assertInstanceOf('Phalcon\Mvc\Model\Resultset\Simple', $singleConditionResult);
 
         $this->assertEquals($expectedPhql, $builderMultipleConditions->getPhql());
-        $this->assertInstanceOf("Phalcon\Mvc\Model\Resultset\Simple", $multipleConditionResult);
+        $this->assertInstanceOf('Phalcon\Mvc\Model\Resultset\Simple', $multipleConditionResult);
     }
 }
