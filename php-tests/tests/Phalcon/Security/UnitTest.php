@@ -7,7 +7,7 @@
  *
  * PhalconPHP Framework
  *
- * @copyright (c) 2011-2014 Phalcon Team
+ * @copyright (c) 2011-2015 Phalcon Team
  * @link      http://www.phalconphp.com
  * @author    Andres Gutierrez <andres@phalconphp.com>
  * @author    Nikolaos Dimopoulos <nikos@phalconphp.com>
@@ -24,56 +24,74 @@ namespace Phalcon\Test\Security;
 
 class UnitTest extends \Phalcon\Test\UnitTestCase
 {
-	/**
-	 * Tests the hash for the security component
-	 *
-	 * @author Nikos Dimopoulos <nikos@phalconphp.com>
-	 * @since  2013-03-02
-	 * @requires extension openssl
-	 */
-	public function testHash()
-	{
-		$security = new \Phalcon\Security();
+    protected $security;
 
-		for ($i = 8; $i < 12; $i++) {
-			$hash = $security->hash('a', $i);
-			$this->assertTrue($security->checkHash('a', $hash));
-		}
+    public function setup()
+    {
+        $this->security = new \Phalcon\Security();
+    }
 
-		for ($i = 8; $i < 12; $i++) {
-			$hash = $security->hash('aaaaaaaaaaaaaa', $i);
-			$this->assertTrue($security->checkHash('aaaaaaaaaaaaaa', $hash));
-		}
-	}
+    /**
+     * Tests the hash for the security component
+     *
+     * @author Nikos Dimopoulos <nikos@phalconphp.com>
+     * @since  2013-03-02
+     * @requires extension openssl
+     */
+    public function testHash()
+    {
+        for ($i = 8; $i < 12; $i++) {
+            $this->assertTrue(
+                $this->security->checkHash(
+                    'a',
+                    $this->security->hash(
+                        'a', 
+                        $i
+                    )
+                )
+            );
+        }
 
-	/**
-	 * Tests \Phalcon\Security::computeHmac()
-	 *
-	 * @author Vladimir Kolesnikov <vladimir@extrememember.com>
-	 * @since 2013-10-08
-	 * @requires function hash_hmac
-	 */
-	public function testComputeHMAC()
-	{
-		$s = new \Phalcon\Security();
-		$k = md5('test', true);
-		$keys = array(
-			substr($k, 0, strlen($k)/2),
-			$k,
-			$k . $k
-		);
+        for ($i = 8; $i < 12; $i++) {
+            $this->assertTrue(
+                $this->security->checkHash(
+                    'aaaaaaaaaaaaaa',
+                    $this->security->hash(
+                        'aaaaaaaaaaaaaa',
+                        $i
+                    )
+                )
+            );
+        }
+    }
 
-		$data = array();
-		for ($i=1; $i<256; ++$i) {
-			$data[] = str_repeat('a', $i);
-		}
+    /**
+     * Tests \Phalcon\Security::computeHmac()
+     *
+     * @author Vladimir Kolesnikov <vladimir@extrememember.com>
+     * @since 2013-10-08
+     * @requires function hash_hmac
+     */
+    public function testComputeHMAC()
+    {
+        $data = array();
+        $k    = md5('test', true);
+        $keys = array(
+            substr($k, 0, (strlen($k) / 2)),
+            $k,
+            $k . $k
+        );
 
-		foreach ($keys as $key) {
-			foreach ($data as $text) {
-				$actual   = $s->computeHmac($text, $key, 'md5');
-				$expected = hash_hmac('md5', $text, $key);
-				$this->assertEquals($expected, $actual);
-			}
-		}
-	}
+        for ($i = 1; $i < 256; ++$i) {
+            $data[] = str_repeat('a', $i);
+        }
+
+        foreach ($keys as $key) {
+            foreach ($data as $text) {
+                $actual   = $this->security->computeHmac($text, $key, 'md5');
+                $expected = hash_hmac('md5', $text, $key);
+                $this->assertEquals($expected, $actual);
+            }
+        }
+    }
 }
